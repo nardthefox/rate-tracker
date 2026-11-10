@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rates at a glance — public market averages</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card: #fff;
+    --ink: #1a1d23;
+    --muted: #5c6570;
+    --line: #e2e6eb;
+    --accent: #1f4b7a;
+    --down: #0b6e4f;
+    --up: #9b2c2c;
+    --warn: #8a6d1d;
+    --warn-bg: #fff6d9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 15px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 12px;
+  }
+  header h1 {
+    font-size: 1.15rem;
+    margin: 0 0 4px;
+    font-weight: 650;
+  }
+  header p.sub {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  .banner {
+    background: var(--warn-bg);
+    color: var(--warn);
+    border: 1px solid #e8d48b;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 420px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    min-height: 118px;
+  }
+  .card.stale { border-color: #e8d48b; }
+  .card .name {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  .card .value {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .card .value.na { color: var(--muted); font-size: 1.1rem; font-weight: 600; }
+  .card .chg {
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+  .card .chg.up { color: var(--up); }
+  .card .chg.down { color: var(--down); }
+  .card .chg.flat { color: var(--muted); }
+  .card .meta {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .card .meta a { color: var(--accent); text-decoration: none; }
+  .card .meta a:hover { text-decoration: underline; }
+  .disclaimer {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #eef3f8;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: #243447;
+  }
+  .chart-wrap {
+    margin-top: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px 6px;
+  }
+  .chart-wrap h2 {
+    font-size: 0.85rem;
+    margin: 0 0 6px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  canvas { width: 100%; height: 160px; display: block; }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    font-size: 0.72rem; color: var(--muted); margin: 4px 0 2px;
+  }
+  .legend span::before {
+    content: ""; display: inline-block; width: 10px; height: 3px;
+    margin-right: 4px; vertical-align: middle; background: currentColor;
+  }
+  footer {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  footer strong { color: var(--ink); font-weight: 650; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Rates at a glance</h1>
+      <p class="sub">National market averages from public sources. Updated when publishers release new figures.</p>
+    </header>
+    <div id="stale-banners"></div>
+    <div class="cards" id="cards" aria-live="polite">
+      <noscript>
+        <article class="card"><p class="value na">Figures need JavaScript enabled. The disclaimer below still applies.</p></article>
+      </noscript>
+    </div>
+    <div class="disclaimer" id="disclaimer">National averages for information only. Not a rate quote, offer, or commitment to lend. Your rate depends on credit, down payment, property, and lender. Todd Renard is a real estate agent, not a mortgage lender or loan originator.</div>
+    <div class="chart-wrap">
+      <h2>About the past year</h2>
+      <div class="legend">
+        <span style="color:#1f4b7a">30-yr PMMS</span>
+        <span style="color:#5b8c5a">15-yr PMMS</span>
+        <span style="color:#b85c38">10-yr Treasury</span>
+        <span style="color:#6b5b95">EFFR</span>
+      </div>
+      <canvas id="chart" width="680" height="160" role="img" aria-label="One-year line chart of PMMS, EFFR, and 10-year Treasury"></canvas>
+    </div>
+    <footer>
+      <div><strong id="brokerage">Harbor Realty &amp; Management Group</strong></div>
+      <div id="generated"></div>
+      <div>No tracking. Figures shown exactly as published (display rounding only).</div>
+    </footer>
+  </div>
+  <script src="data/all.js"></script>
+  <script>
+(function () {
+  var lastSeries = null;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function safeUrl(u) {
+    if (!u || !/^https:\/\//i.test(u)) return "#";
+    return u;
+  }
+  function fmtPct(v) {
+    if (v === null || v === undefined || v === "") return null;
+    if (typeof v === "string" && v.indexOf("%") !== -1) return v;
+    var n = Number(v);
+    if (!Number.isFinite(n)) return null;
+    return n.toFixed(2) + "%";
+  }
+  function fmtDate(iso) {
+    if (!iso) return "—";
+    var p = String(iso).split("-");
+    if (p.length !== 3) return esc(iso);
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var month = months[parseInt(p[1], 10) - 1];
+    if (!month) return esc(iso);
+    return month + " " + parseInt(p[2], 10) + ", " + p[0];
+  }
+  function timeTag(iso) {
+    if (!iso) return "—";
+    return '<time datetime="' + esc(iso) + '">' + fmtDate(iso) + "</time>";
+  }
+  function unavailable(snap) {
+    if (!snap) return true;
+    if (snap.status === "unavailable") return true;
+    if (snap.value === null || snap.value === undefined || snap.value === "") return true;
+    if (!snap.as_of) return true;
+    return false;
+  }
+  function flag(snap) {
+    if (!snap || unavailable(snap)) return "";
+    if (snap.status === "delayed") return " (delayed)";
+    if (snap.stale) return " (stale)";
+    return "";
+  }
+  function chgHtml(snap) {
+    if (unavailable(snap) || typeof snap.value === "string") return "";
+    if (snap.change === null || snap.change === undefined) return "";
+    var c = Number(snap.change);
+    if (!Number.isFinite(c)) return "";
+    var cls = c > 0 ? "up" : (c < 0 ? "down" : "flat");
+    var arrow = c > 0 ? "▲" : (c < 0 ? "▼" : "•");
+    var priorLabel = snap.frequency === "weekly" ? "vs prior week" : "vs prior day";
+    return '<div class="chg ' + cls + '">' + arrow + " " + Math.abs(c).toFixed(2) + " pts " + priorLabel + "</div>";
+  }
+  function card(snap, title, digits) {
+    var missing = unavailable(snap);
+    var val;
+    if (missing) val = '<p class="value na">Unavailable</p>';
+    else if (typeof snap.value === "string") val = '<p class="value">' + esc(snap.value) + "%</p>";
+    else val = '<p class="value">' + fmtPct(snap.value, digits) + "</p>";
+    var src = snap && snap.source_name ? snap.source_name : "";
+    var url = snap && snap.source_url ? snap.source_url : "";
+    var asof = snap ? timeTag(snap.as_of) : "—";
+    var sourceLine = src
+      ? ('Source: <a href="' + esc(safeUrl(url)) + '" target="_blank" rel="noopener noreferrer">' + esc(src) + "</a>")
+      : "Source unavailable";
+    return (
+      '<article class="card' + (!missing && (snap.stale || snap.status === "delayed") ? " stale" : "") + '">' +
+        '<p class="name">' + esc(title) + "</p>" +
+        val +
+        (missing ? "" : chgHtml(snap)) +
+        '<div class="meta">As of ' + asof + (missing ? "" : esc(flag(snap))) + "<br>" +
+          sourceLine +
+        "</div></article>"
+    );
+  }
+
+  function render(data) {
+    var s = data.series || {};
+    if (data.disclaimer) document.getElementById("disclaimer").textContent = data.disclaimer;
+    if (data.brokerage) document.getElementById("brokerage").textContent = data.brokerage;
+    document.getElementById("generated").textContent =
+      "Snapshot retrieved " + (data.generated_at || "") + " (" + (data.timezone || "America/Chicago") + ").";
+
+    var banners = [];
+    function check(snap, label) {
+      if (!snap || unavailable(snap)) {
+        banners.push(label + " is unavailable.");
+        return;
+      }
+      if (snap.status === "delayed") {
+        banners.push(label + " fetch failed; showing last good value from " + fmtDate(snap.as_of) + ".");
+        return;
+      }
+      if (snap.stale) banners.push(label + " may be stale (as of " + fmtDate(snap.as_of) + ").");
+    }
+    check(s.pmms30, "30-yr PMMS");
+    check(s.pmms15, "15-yr PMMS");
+    check(s.effr, "Effective fed funds");
+    check(s.treasury10y, "10-yr Treasury");
+    check(s.fomc_target, "FOMC target range");
+    document.getElementById("stale-banners").innerHTML = banners.map(function (b) {
+      return '<div class="banner" role="status">' + esc(b) + "</div>";
+    }).join("");
+
+    var fedInner;
+    if (!unavailable(s.fomc_target)) {
+      var effrLine;
+      if (!unavailable(s.effr)) {
+        effrLine = '<div class="chg flat">EFFR ' + fmtPct(s.effr.value) + " · as of " + timeTag(s.effr.as_of) + esc(flag(s.effr)) + "</div>";
+      } else {
+        effrLine = '<div class="chg flat">EFFR unavailable</div>';
+      }
+      var fedStale = s.fomc_target.stale || s.fomc_target.status === "delayed" || (s.effr && (s.effr.stale || s.effr.status === "delayed"));
+      fedInner =
+        '<article class="card' + (fedStale ? " stale" : "") + '">' +
+          '<p class="name">Fed funds (target + effective)</p>' +
+          '<p class="value">' + esc(s.fomc_target.value) + "%</p>" +
+          effrLine +
+          '<div class="meta">Target as of ' + timeTag(s.fomc_target.as_of) + esc(flag(s.fomc_target)) +
+            ' · <a href="' + esc(safeUrl(s.fomc_target.source_url)) + '" target="_blank" rel="noopener noreferrer">FOMC statement</a>' +
+            "<br>EFFR source: Board of Governors, H.15" +
+          "</div></article>";
+    } else {
+      fedInner = card(s.effr, "Effective federal funds rate", 2);
+    }
+
+    document.getElementById("cards").innerHTML =
+      card(s.pmms30, "30-year fixed average", 2) +
+      card(s.pmms15, "15-year fixed average", 2) +
+      fedInner +
+      card(s.treasury10y, "10-year Treasury yield", 2);
+
+    lastSeries = s;
+    drawChart(s);
+  }
+
+  function drawChart(series) {
+    var canvas = document.getElementById("chart");
+    var cssH = 160;
+    var cssW = canvas.clientWidth || 680;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(cssW * dpr));
+    canvas.height = Math.max(1, Math.round(cssH * dpr));
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var w = cssW, h = cssH;
+    ctx.clearRect(0, 0, w, h);
+    function observations(hist) {
+      var out = [];
+      (hist || []).forEach(function (p) {
+        var n = p ? Number(p.value) : NaN;
+        var t = p ? Date.parse(p.date) : NaN;
+        if (!Number.isFinite(n) || !Number.isFinite(t)) return;
+        out.push({ t: t, value: n });
+      });
+      return out;
+    }
+    var tracks = [
+      { color: "#1f4b7a", hist: observations(series.pmms30 && series.pmms30.history) },
+      { color: "#5b8c5a", hist: observations(series.pmms15 && series.pmms15.history) },
+      { color: "#b85c38", hist: observations(series.treasury10y && series.treasury10y.history) },
+      { color: "#6b5b95", hist: observations(series.effr && series.effr.history) }
+    ];
+    var all = [];
+    tracks.forEach(function (t) { all = all.concat(t.hist); });
+    if (!all.length) {
+      ctx.fillStyle = "#5c6570";
+      ctx.font = "12px system-ui, sans-serif";
+      ctx.fillText("Chart data unavailable", 12, 24);
+      return;
+    }
+    var minV = Infinity, maxV = -Infinity, minT = Infinity, maxT = -Infinity;
+    all.forEach(function (p) {
+      if (p.value < minV) minV = p.value;
+      if (p.value > maxV) maxV = p.value;
+      if (p.t < minT) minT = p.t;
+      if (p.t > maxT) maxT = p.t;
+    });
+    if (maxV === minV) { maxV += 0.5; minV -= 0.5; }
+    var pad = 0.15 * (maxV - minV);
+    minV -= pad; maxV += pad;
+    var left = 36, right = 8, top = 8, bottom = 18;
+    function x(t) { return left + (t - minT) / (maxT - minT || 1) * (w - left - right); }
+    function y(v) { return top + (maxV - v) / (maxV - minV || 1) * (h - top - bottom); }
+    ctx.strokeStyle = "#e2e6eb";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, top); ctx.lineTo(left, h - bottom); ctx.lineTo(w - right, h - bottom);
+    ctx.stroke();
+    ctx.fillStyle = "#8a93a0";
+    ctx.font = "10px system-ui, sans-serif";
+    ctx.fillText(minV.toFixed(1) + "%", 2, h - bottom);
+    ctx.fillText(maxV.toFixed(1) + "%", 2, top + 8);
+    tracks.forEach(function (t) {
+      if (!t.hist.length) return;
+      ctx.strokeStyle = t.color;
+      ctx.fillStyle = t.color;
+      ctx.lineWidth = 1.5;
+      if (t.hist.length === 1) {
+        ctx.beginPath();
+        ctx.arc(x(t.hist[0].t), y(t.hist[0].value), 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        return;
+      }
+      ctx.beginPath();
+      t.hist.forEach(function (p, i) {
+        var px = x(p.t), py = y(p.value);
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      });
+      ctx.stroke();
+    });
+  }
+
+  function boot() {
+    if (window.RATE_TRACKER_DATA) {
+      render(window.RATE_TRACKER_DATA);
+      return;
+    }
+    fetch("data/all.json")
+      .then(function (r) { if (!r.ok) throw new Error("missing"); return r.json(); })
+      .then(render)
+      .catch(function () {
+        document.getElementById("cards").innerHTML =
+          '<article class="card"><p class="value na">Data file missing. Run fetch_rates.py.</p></article>';
+      });
+  }
+  window.addEventListener("resize", function () {
+    if (lastSeries) drawChart(lastSeries);
+  });
+  boot();
+})();
+  </script>
+</body>
+</html>

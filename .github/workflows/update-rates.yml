@@ -1,0 +1,103 @@
+name: Update rates
+
+# Weekday fetches plus a manual run. Nothing in this workflow is a secret.
+# The optional commit writes only the public site/data snapshot.
+on:
+  schedule:
+    # UTC. GitHub may start a scheduled run late.
+    # 14:15 UTC = 8:15am CST / 9:15am CDT
+    - cron: "15 14 * * 1-5"
+    # 17:45 UTC = 11:45am CST / 12:45pm CDT, after the Thursday noon ET PMMS release
+    - cron: "45 17 * * 1-5"
+    # 22:20 UTC = 4:20pm CST / 5:20pm CDT, after the 4:15pm ET H.15 release
+    - cron: "20 22 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rate-tracker-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pages: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Check fetch rules
+        run: python3 -m unittest -v
+
+      - name: Fetch public rates
+        env:
+          RATE_TRACKER_PREVIOUS_URL: https://nardthefox.github.io/rate-tracker/data/all.json
+        run: python3 fetch_rates.py
+
+      - name: Commit rate snapshot
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- \
+            site/data/all.js \
+            site/data/all.json \
+            site/data/pmms30.json \
+            site/data/pmms15.json \
+            site/data/effr.json \
+            site/data/treasury10y.json \
+            site/data/fomc_target.json
+          staged="$(git diff --cached --name-only)"
+          printf '%s\n' "$staged"
+          if [ -z "$staged" ]; then
+            echo "No changes in site/data."
+            exit 0
+          fi
+          extra="$(printf '%s\n' "$staged" | grep -v -E '^site/data/(all\.(js|json)|pmms30\.json|pmms15\.json|effr\.json|treasury10y\.json|fomc_target\.json)$' || true)"
+          if [ -n "$extra" ]; then
+            echo "Refusing to commit unexpected paths:"
+            printf '%s\n' "$extra"
+            exit 1
+          fi
+          git commit -m "Update published rate snapshot"
+          git push
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+        with:
+          # Do not enable Pages from this workflow. Todd turns that on in Settings.
+          enablement: false
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
