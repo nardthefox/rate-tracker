@@ -1,8 +1,14 @@
 name: Update rates
 
-# Weekday fetches plus a manual run. Nothing in this workflow is a secret.
+# Weekday fetches, a manual run, and a deploy when code lands on main.
+# Nothing in this workflow is a secret.
 # The optional commit writes only the public site/data snapshot.
+# That push uses the default GITHUB_TOKEN. GITHUB_TOKEN pushes do not
+# trigger workflows, so the data commit cannot start another run.
 on:
+  push:
+    branches:
+      - main
   schedule:
     # UTC. GitHub may start a scheduled run late.
     # 14:15 UTC = 8:15am CST / 9:15am CDT

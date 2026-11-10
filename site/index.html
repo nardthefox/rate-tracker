@@ -220,7 +220,12 @@
     var priorLabel = snap.frequency === "weekly" ? "vs prior week" : "vs prior day";
     return '<div class="chg ' + cls + '">' + arrow + " " + Math.abs(c).toFixed(2) + " pts " + priorLabel + "</div>";
   }
-  function card(snap, title, digits) {
+  var FED_WHY = "Why it matters: The Fed's rate moves short-term borrowing costs, like HELOCs and adjustable-rate loans, and signals where policy is headed. It doesn't set mortgage rates directly.";
+  var TREASURY_WHY = "Why it matters: 30-year mortgage rates tend to move with the 10-year Treasury yield.";
+  function whyLine(text) {
+    return '<div class="meta">' + esc(text) + "</div>";
+  }
+  function card(snap, title, digits, why) {
     var missing = unavailable(snap);
     var val;
     if (missing) val = '<p class="value na">Unavailable</p>';
@@ -239,7 +244,9 @@
         (missing ? "" : chgHtml(snap)) +
         '<div class="meta">As of ' + asof + (missing ? "" : esc(flag(snap))) + "<br>" +
           sourceLine +
-        "</div></article>"
+        "</div>" +
+        (why ? whyLine(why) : "") +
+        "</article>"
     );
   }
 
@@ -288,16 +295,18 @@
           '<div class="meta">Target as of ' + timeTag(s.fomc_target.as_of) + esc(flag(s.fomc_target)) +
             ' · <a href="' + esc(safeUrl(s.fomc_target.source_url)) + '" target="_blank" rel="noopener noreferrer">FOMC statement</a>' +
             "<br>EFFR source: Board of Governors, H.15" +
-          "</div></article>";
+          "</div>" +
+          whyLine(FED_WHY) +
+          "</article>";
     } else {
-      fedInner = card(s.effr, "Effective federal funds rate", 2);
+      fedInner = card(s.effr, "Effective federal funds rate", 2, FED_WHY);
     }
 
     document.getElementById("cards").innerHTML =
       card(s.pmms30, "30-year fixed average", 2) +
       card(s.pmms15, "15-year fixed average", 2) +
       fedInner +
-      card(s.treasury10y, "10-year Treasury yield", 2);
+      card(s.treasury10y, "10-year Treasury yield", 2, TREASURY_WHY);
 
     lastSeries = s;
     drawChart(s);
