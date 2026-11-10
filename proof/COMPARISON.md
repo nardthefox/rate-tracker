@@ -1,6 +1,7 @@
 # Publisher comparison
 
-Checked 2026-11-09 23:01 America/Chicago, after `python3 fetch_rates.py`.
+Checked 2026-11-09 23:18 America/Chicago, after `python3 fetch_rates.py`.
+Screenshots of that snapshot: `proof/widget_desktop.png` and `proof/widget_390.png`, taken 2026-11-10T05:18:26Z (2026-11-09 23:18:26 America/Chicago).
 Widget values are `site/data/all.json`. File and page values were read again from the publishers, with a separate parse, after that run.
 
 | Series | Widget value | Widget as-of | Publisher file | File as-of | Publisher page | Page as-of | Match |

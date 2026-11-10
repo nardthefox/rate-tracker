@@ -6,7 +6,7 @@
   "prior_value": 7.24,
   "prior_as_of": "2026-10-29",
   "change": -0.06,
-  "retrieved_at": "2026-11-09T23:00:33-06:00",
+  "retrieved_at": "2026-11-09T23:17:45-06:00",
   "source_name": "Freddie Mac Primary Mortgage Market Survey®",
   "source_url": "https://www.freddiemac.com/pmms",
   "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
