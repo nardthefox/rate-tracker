@@ -1,0 +1,235 @@
+{
+  "series_id": "pmms15",
+  "label": "15-year fixed (PMMS)",
+  "value": 6.57,
+  "as_of": "2026-11-05",
+  "prior_value": 6.6,
+  "prior_as_of": "2026-10-29",
+  "change": -0.03,
+  "retrieved_at": "2026-11-09T23:00:33-06:00",
+  "source_name": "Freddie Mac Primary Mortgage Market Survey®",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
+  "license_note": "Use with attribution. Values are unaltered. No Freddie Mac logo or endorsement.",
+  "status": "ok",
+  "frequency": "weekly",
+  "unit": "percent",
+  "history": [
+    {
+      "date": "2025-11-06",
+      "value": 5.5
+    },
+    {
+      "date": "2025-11-13",
+      "value": 5.49
+    },
+    {
+      "date": "2025-11-20",
+      "value": 5.54
+    },
+    {
+      "date": "2025-11-26",
+      "value": 5.51
+    },
+    {
+      "date": "2025-12-04",
+      "value": 5.44
+    },
+    {
+      "date": "2025-12-11",
+      "value": 5.54
+    },
+    {
+      "date": "2025-12-18",
+      "value": 5.47
+    },
+    {
+      "date": "2025-12-24",
+      "value": 5.5
+    },
+    {
+      "date": "2025-12-31",
+      "value": 5.44
+    },
+    {
+      "date": "2026-01-08",
+      "value": 5.46
+    },
+    {
+      "date": "2026-01-15",
+      "value": 5.38
+    },
+    {
+      "date": "2026-01-22",
+      "value": 5.44
+    },
+    {
+      "date": "2026-01-29",
+      "value": 5.49
+    },
+    {
+      "date": "2026-02-05",
+      "value": 5.5
+    },
+    {
+      "date": "2026-02-12",
+      "value": 5.44
+    },
+    {
+      "date": "2026-02-19",
+      "value": 5.35
+    },
+    {
+      "date": "2026-02-26",
+      "value": 5.44
+    },
+    {
+      "date": "2026-03-05",
+      "value": 5.43
+    },
+    {
+      "date": "2026-03-12",
+      "value": 5.5
+    },
+    {
+      "date": "2026-03-19",
+      "value": 5.54
+    },
+    {
+      "date": "2026-03-26",
+      "value": 5.75
+    },
+    {
+      "date": "2026-04-02",
+      "value": 5.77
+    },
+    {
+      "date": "2026-04-09",
+      "value": 5.74
+    },
+    {
+      "date": "2026-04-16",
+      "value": 5.65
+    },
+    {
+      "date": "2026-04-23",
+      "value": 5.58
+    },
+    {
+      "date": "2026-04-30",
+      "value": 5.64
+    },
+    {
+      "date": "2026-05-07",
+      "value": 5.72
+    },
+    {
+      "date": "2026-05-14",
+      "value": 5.71
+    },
+    {
+      "date": "2026-05-21",
+      "value": 5.85
+    },
+    {
+      "date": "2026-05-28",
+      "value": 5.87
+    },
+    {
+      "date": "2026-06-04",
+      "value": 5.79
+    },
+    {
+      "date": "2026-06-11",
+      "value": 5.84
+    },
+    {
+      "date": "2026-06-18",
+      "value": 5.81
+    },
+    {
+      "date": "2026-06-25",
+      "value": 5.84
+    },
+    {
+      "date": "2026-07-02",
+      "value": 5.79
+    },
+    {
+      "date": "2026-07-09",
+      "value": 5.82
+    },
+    {
+      "date": "2026-07-16",
+      "value": 5.93
+    },
+    {
+      "date": "2026-07-23",
+      "value": 5.96
+    },
+    {
+      "date": "2026-07-30",
+      "value": 6.04
+    },
+    {
+      "date": "2026-08-06",
+      "value": 6.01
+    },
+    {
+      "date": "2026-08-13",
+      "value": 5.96
+    },
+    {
+      "date": "2026-08-20",
+      "value": 5.95
+    },
+    {
+      "date": "2026-08-27",
+      "value": 5.98
+    },
+    {
+      "date": "2026-09-03",
+      "value": 6.04
+    },
+    {
+      "date": "2026-09-10",
+      "value": 6.09
+    },
+    {
+      "date": "2026-09-17",
+      "value": 6.26
+    },
+    {
+      "date": "2026-09-24",
+      "value": 6.42
+    },
+    {
+      "date": "2026-10-01",
+      "value": 6.6
+    },
+    {
+      "date": "2026-10-08",
+      "value": 6.73
+    },
+    {
+      "date": "2026-10-15",
+      "value": 6.71
+    },
+    {
+      "date": "2026-10-22",
+      "value": 6.68
+    },
+    {
+      "date": "2026-10-29",
+      "value": 6.6
+    },
+    {
+      "date": "2026-11-05",
+      "value": 6.57
+    }
+  ],
+  "age_days": 4,
+  "stale": false,
+  "stale_threshold_days": 10,
+  "freshness": "current"
+}
