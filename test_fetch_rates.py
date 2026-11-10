@@ -257,6 +257,22 @@ class PageAndWorkflowTests(unittest.TestCase):
         self.assertIn('cron: "15 14 * * 1-5"', text)
         self.assertIn('cron: "45 17 * * 1-5"', text)
         self.assertIn('cron: "20 22 * * 1-5"', text)
+        self.assertIn("push:", text)
+        self.assertIn("- main", text)
+
+    def test_why_it_matters_lines_render(self) -> None:
+        html = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
+        fed = (
+            "Why it matters: The Fed's rate moves short-term borrowing costs, "
+            "like HELOCs and adjustable-rate loans, and signals where policy is headed. "
+            "It doesn't set mortgage rates directly."
+        )
+        treasury = "Why it matters: 30-year mortgage rates tend to move with the 10-year Treasury yield."
+        self.assertEqual(html.count(fed), 1)
+        self.assertEqual(html.count(treasury), 1)
+        self.assertIn("whyLine(FED_WHY)", html)
+        self.assertIn('card(s.effr, "Effective federal funds rate", 2, FED_WHY)', html)
+        self.assertIn('card(s.treasury10y, "10-year Treasury yield", 2, TREASURY_WHY)', html)
 
 
 if __name__ == "__main__":
