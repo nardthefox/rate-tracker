@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T14:50:24-06:00",
+  "generated_at": "2026-11-10T16:33:38-06:00",
   "timezone": "America/Chicago",
   "disclaimer": "National averages for information only. Not a rate quote, offer, or commitment to lend. Your rate depends on credit, down payment, property, and lender. Todd Renard is a real estate agent, not a mortgage lender or loan originator.",
   "brokerage": "Harbor Realty & Management Group",
@@ -12,7 +12,7 @@
       "prior_value": 7.24,
       "prior_as_of": "2026-10-29",
       "change": -0.06,
-      "retrieved_at": "2026-11-10T14:49:45-06:00",
+      "retrieved_at": "2026-11-10T16:32:58-06:00",
       "source_name": "Freddie Mac Primary Mortgage Market Survey®",
       "source_url": "https://www.freddiemac.com/pmms",
       "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
@@ -247,7 +247,7 @@
       "prior_value": 6.6,
       "prior_as_of": "2026-10-29",
       "change": -0.03,
-      "retrieved_at": "2026-11-10T14:49:45-06:00",
+      "retrieved_at": "2026-11-10T16:32:58-06:00",
       "source_name": "Freddie Mac Primary Mortgage Market Survey®",
       "source_url": "https://www.freddiemac.com/pmms",
       "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
@@ -478,11 +478,11 @@
       "series_id": "effr",
       "label": "Effective federal funds rate",
       "value": 3.88,
-      "as_of": "2026-11-06",
+      "as_of": "2026-11-09",
       "prior_value": 3.88,
-      "prior_as_of": "2026-11-05",
+      "prior_as_of": "2026-11-06",
       "change": 0.0,
-      "retrieved_at": "2026-11-10T14:49:45-06:00",
+      "retrieved_at": "2026-11-10T16:33:01-06:00",
       "source_name": "Board of Governors of the Federal Reserve System, H.15",
       "source_url": "https://www.federalreserve.gov/releases/h15/",
       "data_url": "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=646250c87b1afd04cc6774796fc0cec8&lastobs=280&filetype=csv&label=include&layout=seriescolumn&type=package",
@@ -1502,9 +1502,13 @@
         {
           "date": "2026-11-06",
           "value": 3.88
+        },
+        {
+          "date": "2026-11-09",
+          "value": 3.88
         }
       ],
-      "age_days": 4,
+      "age_days": 1,
       "stale": false,
       "stale_threshold_days": 5,
       "freshness": "current"
@@ -1517,7 +1521,7 @@
       "prior_value": 4.88,
       "prior_as_of": "2026-11-09",
       "change": 0.1,
-      "retrieved_at": "2026-11-10T14:50:24-06:00",
+      "retrieved_at": "2026-11-10T16:33:37-06:00",
       "source_name": "U.S. Department of the Treasury",
       "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
       "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?_format=csv&type=daily_treasury_yield_curve",
@@ -2558,7 +2562,7 @@
       "prior_value": null,
       "prior_as_of": null,
       "change": null,
-      "retrieved_at": "2026-11-10T14:50:24-06:00",
+      "retrieved_at": "2026-11-10T16:33:38-06:00",
       "source_name": "Board of Governors of the Federal Reserve System, FOMC statement",
       "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
       "data_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
