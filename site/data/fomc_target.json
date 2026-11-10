@@ -8,7 +8,7 @@
   "prior_value": null,
   "prior_as_of": null,
   "change": null,
-  "retrieved_at": "2026-11-09T23:56:26-06:00",
+  "retrieved_at": "2026-11-10T14:50:24-06:00",
   "source_name": "Board of Governors of the Federal Reserve System, FOMC statement",
   "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
   "data_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
@@ -18,7 +18,7 @@
   "unit": "percent_range",
   "history": [],
   "statement_quote": "target range for the federal funds rate at 3-3/4 to 4 percent",
-  "age_days": 12,
+  "age_days": 13,
   "stale": false,
   "stale_threshold_days": 60,
   "freshness": "current"
