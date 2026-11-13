@@ -6,7 +6,7 @@
   "prior_value": 4.98,
   "prior_as_of": "2026-11-10",
   "change": 0.12,
-  "retrieved_at": "2026-11-12T16:52:52-06:00",
+  "retrieved_at": "2026-11-12T20:41:55-06:00",
   "source_name": "U.S. Department of the Treasury",
   "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
   "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?_format=csv&type=daily_treasury_yield_curve",
