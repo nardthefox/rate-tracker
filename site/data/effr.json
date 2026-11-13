@@ -2,11 +2,11 @@
   "series_id": "effr",
   "label": "Effective federal funds rate",
   "value": 3.88,
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-12",
   "prior_value": 3.88,
-  "prior_as_of": "2026-11-09",
+  "prior_as_of": "2026-11-10",
   "change": 0.0,
-  "retrieved_at": "2026-11-13T14:54:04-06:00",
+  "retrieved_at": "2026-11-13T16:54:19-06:00",
   "source_name": "Board of Governors of the Federal Reserve System, H.15",
   "source_url": "https://www.federalreserve.gov/releases/h15/",
   "data_url": "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=646250c87b1afd04cc6774796fc0cec8&lastobs=280&filetype=csv&label=include&layout=seriescolumn&type=package",
@@ -1022,9 +1022,13 @@
     {
       "date": "2026-11-10",
       "value": 3.88
+    },
+    {
+      "date": "2026-11-12",
+      "value": 3.88
     }
   ],
-  "age_days": 3,
+  "age_days": 1,
   "stale": false,
   "stale_threshold_days": 5,
   "freshness": "current"
