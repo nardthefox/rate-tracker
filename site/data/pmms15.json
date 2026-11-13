@@ -6,7 +6,7 @@
   "prior_value": 6.57,
   "prior_as_of": "2026-11-05",
   "change": -0.12,
-  "retrieved_at": "2026-11-12T20:41:15-06:00",
+  "retrieved_at": "2026-11-13T14:54:04-06:00",
   "source_name": "Freddie Mac Primary Mortgage Market Survey®",
   "source_url": "https://www.freddiemac.com/pmms",
   "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
@@ -228,7 +228,7 @@
       "value": 6.45
     }
   ],
-  "age_days": 0,
+  "age_days": 1,
   "stale": false,
   "stale_threshold_days": 10,
   "freshness": "current"
