@@ -2,16 +2,16 @@
   "series_id": "effr",
   "label": "Effective federal funds rate",
   "value": 3.88,
-  "as_of": "2026-11-13",
+  "as_of": "2026-11-16",
   "prior_value": 3.88,
-  "prior_as_of": "2026-11-12",
+  "prior_as_of": "2026-11-13",
   "change": 0.0,
-  "retrieved_at": "2026-11-17T16:23:37-06:00",
+  "retrieved_at": "2026-11-17T17:58:18-06:00",
   "source_name": "Board of Governors of the Federal Reserve System, H.15",
   "source_url": "https://www.federalreserve.gov/releases/h15/",
   "data_url": "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=646250c87b1afd04cc6774796fc0cec8&lastobs=280&filetype=csv&label=include&layout=seriescolumn&type=package",
   "license_note": "Board of Governors public domain. Cite the Board. No Federal Reserve seal or affiliation.",
-  "status": "delayed",
+  "status": "ok",
   "frequency": "daily",
   "unit": "percent",
   "history": [
@@ -1026,11 +1026,14 @@
     {
       "date": "2026-11-13",
       "value": 3.88
+    },
+    {
+      "date": "2026-11-16",
+      "value": 3.88
     }
   ],
-  "age_days": 4,
+  "age_days": 1,
   "stale": false,
   "stale_threshold_days": 5,
-  "freshness": "current",
-  "error": "GET failed for https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=646250c87b1afd04cc6774796fc0cec8&lastobs=280&filetype=csv&label=include&layout=seriescolumn&type=package: empty response from https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=646250c87b1afd04cc6774796fc0cec8&lastobs=280&filetype=csv&label=include&layout=seriescolumn&type=package"
+  "freshness": "current"
 }
