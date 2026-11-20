@@ -1,12 +1,12 @@
 {
   "series_id": "treasury10y",
   "label": "10-year Treasury par yield",
-  "value": 5.04,
-  "as_of": "2026-11-19",
-  "prior_value": 5.07,
-  "prior_as_of": "2026-11-18",
-  "change": -0.03,
-  "retrieved_at": "2026-11-19T21:32:03-06:00",
+  "value": 4.92,
+  "as_of": "2026-11-20",
+  "prior_value": 5.04,
+  "prior_as_of": "2026-11-19",
+  "change": -0.12,
+  "retrieved_at": "2026-11-20T15:49:56-06:00",
   "source_name": "U.S. Department of the Treasury",
   "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
   "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?_format=csv&type=daily_treasury_yield_curve",
@@ -15,10 +15,6 @@
   "frequency": "daily",
   "unit": "percent",
   "history": [
-    {
-      "date": "2025-11-14",
-      "value": 4.14
-    },
     {
       "date": "2025-11-17",
       "value": 4.13
@@ -1030,6 +1026,10 @@
     {
       "date": "2026-11-19",
       "value": 5.04
+    },
+    {
+      "date": "2026-11-20",
+      "value": 4.92
     }
   ],
   "age_days": 0,
