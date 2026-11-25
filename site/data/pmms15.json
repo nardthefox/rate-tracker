@@ -1,12 +1,12 @@
 {
   "series_id": "pmms15",
   "label": "15-year fixed (PMMS)",
-  "value": 6.66,
-  "as_of": "2026-11-19",
-  "prior_value": 6.45,
-  "prior_as_of": "2026-11-12",
-  "change": 0.21,
-  "retrieved_at": "2026-11-24T22:56:28-06:00",
+  "value": 6.54,
+  "as_of": "2026-11-25",
+  "prior_value": 6.66,
+  "prior_as_of": "2026-11-19",
+  "change": -0.12,
+  "retrieved_at": "2026-11-25T17:05:48-06:00",
   "source_name": "Freddie Mac Primary Mortgage Market Survey®",
   "source_url": "https://www.freddiemac.com/pmms",
   "data_url": "https://www.freddiemac.com/pmms/docs/PMMS_history.csv",
@@ -226,9 +226,13 @@
     {
       "date": "2026-11-19",
       "value": 6.66
+    },
+    {
+      "date": "2026-11-25",
+      "value": 6.54
     }
   ],
-  "age_days": 5,
+  "age_days": 0,
   "stale": false,
   "stale_threshold_days": 10,
   "freshness": "current"
